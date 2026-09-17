@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Release-specific: external code, checkpoints, data and run outputs are not part of the repository
+baselines/
+ckpts/
+data/
+preds/
+logs/

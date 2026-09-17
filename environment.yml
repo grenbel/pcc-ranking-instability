@@ -1,0 +1,35 @@
+# Conda environment for the audit pipeline (Section V-G of the paper).
+#
+# Reference stacks used for the paper:
+#   forward stages (GPU):           Python 3.12.3, PyTorch 2.8.0+cu128, CUDA 12.8, Ubuntu 22.04.5 LTS, RTX 5090
+#   metric / analysis stages (CPU): Python 3.9, Windows 11
+# PyTorch is not pinned here: install the build that matches your CUDA driver from
+# https://pytorch.org before building PoinTr's CUDA extensions (see README).
+
+name: pcc-ranking-instability
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      # core numerics (metric stage, analysis scripts, smoke tests)
+      - numpy>=2.0
+      - scipy>=1.13
+      - threadpoolctl       # per-worker BLAS thread limit in metric_emitter.py --workers
+      # PoinTr data pipeline + model dependencies (baselines/PoinTr)
+      - open3d              # .pcd reader used by PoinTr's PCN dataset
+      - h5py>=3.10
+      - pyyaml>=6.0
+      - easydict>=1.10
+      - tensorboardX>=2.6
+      - tqdm
+      - matplotlib>=3.7
+      - timm>=1.0,<2.0
+      - einops>=0.7
+      - transforms3d>=0.4
+      # optional
+      - wandb               # optional logging in sanity_clean_pcn.py and sweep_common.py (--no-wandb disables it)
+      - pytest

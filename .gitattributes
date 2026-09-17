@@ -1,0 +1,6 @@
+# Keep LF line endings on every platform.
+* text=auto eol=lf
+# The archive-relative analysis drivers are stored byte-for-byte as published in the supplementary archive.
+analysis/* -text
+*.npz binary
+*.pth binary
