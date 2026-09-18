@@ -18,7 +18,7 @@ the paper:
 | Analysis scripts: stratified tables, paired statistics, bootstrap intervals | `analysis/` (the five drivers of the supplementary archive's `scripts/` directory, byte-identical, plus `main_grid_analysis.py`, `gen_table_data_rerun.py` and `arrange_metrics.py`) |
 
 The dense per-sample prediction archives of all four sweeps (304 `.npz` files) are
-published as a Hugging Face dataset, see [Dense prediction archives](#dense-prediction-archives).
+published as a ModelScope dataset, see [Dense prediction archives](#dense-prediction-archives).
 The per-sample metric arrays, the forward manifests and the analysis JSONs are in the
 supplementary archive published with the article.
 
@@ -216,9 +216,20 @@ write its predictions in the per-cell archive format that the metric emitter con
 ## Dense prediction archives
 
 The per-cell dense predictions written by the forward stage for the paper's four sweeps
-(304 `.npz` files, 65.5 GB) are published as a Hugging Face dataset:
+(304 `.npz` files, 65.5 GB) are published as a ModelScope dataset:
 
-**https://huggingface.co/datasets/spacetime1008/pcc-ranking-instability-predictions**
+**https://www.modelscope.cn/datasets/grenbel/pcc-ranking-instability-predictions**
+
+Download with the ModelScope CLI (no account is needed for a public dataset):
+
+```bash
+pip install modelscope
+modelscope download --dataset grenbel/pcc-ranking-instability-predictions --local_dir ./predictions                        # all four sweeps, 65.5 GB
+modelscope download --dataset grenbel/pcc-ranking-instability-predictions --include 'composed/*' --local_dir ./predictions  # one sweep
+```
+
+or clone it with git LFS: `git lfs install && git clone https://www.modelscope.cn/datasets/grenbel/pcc-ranking-instability-predictions.git`. Verify the files against
+`CHECKSUMS.md5` (`md5sum -c CHECKSUMS.md5`).
 
 | Folder | Cells | Protocol / manifest | `cache_hash` prefix |
 |---|---|---|---|
